@@ -14,13 +14,13 @@ spring:
     init:
       mode: always # 애플리케이션 시작 시 스크립트 초기화 (기본값: embedded)
 
-#  # healthcheck
-#  management:
-#    endpoints:
-#      web:
-#        base-path: # 기본값 /actuator
-#        path-mapping:
-#          health: # 기본값 health
-#    endpoint:
-#      health:
-#        show-details: always
+  # healthcheck
+  management:
+    endpoints:
+      web:
+        base-path: # 기본값 /actuator
+        path-mapping:
+          health: # 기본값 health
+    endpoint:
+      health:
+        show-details: always
