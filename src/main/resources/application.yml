@@ -20,7 +20,7 @@ spring:
       web:
         base-path: # 기본값 /actuator
         path-mapping:
-          health: # 기본값 health
+          health: # 기본값 /health
     endpoint:
       health:
         show-details: always
