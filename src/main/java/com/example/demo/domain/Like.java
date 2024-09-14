@@ -1,11 +1,7 @@
 package com.example.demo.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
-//import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -15,16 +11,21 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Like {
+    // 곡, 사용자, 좋아요
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "like_id")
     private Long id;
 
-    // @Column(nullable = false)
-    @NotNull
-    private String username;
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "song_id")
+    private Song song;
 
-    // private int age;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member member;
+
+    @Column(nullable = false)
+    private boolean liked;
 }

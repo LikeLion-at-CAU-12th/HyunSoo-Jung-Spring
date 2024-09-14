@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.3'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.jetbrains.kotlin.jvm'
 }
 
 group = 'com.example'
@@ -36,8 +37,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	// 쿼리 파라미터 확인
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-//	// AssertJ for fluent assertions in tests
-//	testImplementation 'org.assertj:assertj-core:3.24.2' // Use latest version available
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 tasks.named('test') {
