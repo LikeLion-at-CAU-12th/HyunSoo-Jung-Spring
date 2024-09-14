@@ -42,5 +42,5 @@ public class Song {
     private LocalDate releaseDate;
 
 //    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Like> likes; // OneToMany
+//    private List<Liked> likes; // OneToMany
 }
