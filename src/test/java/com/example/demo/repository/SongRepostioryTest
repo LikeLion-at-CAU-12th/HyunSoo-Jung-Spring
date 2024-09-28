@@ -1,0 +1,98 @@
+package com.example.demo.repository;
+
+import com.example.demo.domain.Artist;
+import com.example.demo.domain.Album;
+import com.example.demo.domain.Song;
+import jakarta.persistence.EntityManager;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class SongRepositoryTest {
+
+    @Autowired
+    SongRepository songRepository;
+
+    @Autowired
+    EntityManager em;
+
+    private Artist createArtist(String name) {
+        return Artist.builder()
+                .name(name)
+                .build();
+    }
+
+    private Album createAlbum(String title) {
+        return Album.builder()
+                .title(title)
+                .build();
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void testSong() {
+        Artist artist = createArtist("Test Artist");
+        Album album = createAlbum("Test Album");
+
+        Song song = Song.builder()
+                .title("Test Song")
+                .artist(artist)
+                .album(album)
+                .releaseDate(LocalDate.of(2024, 9, 18))
+                .build();
+
+        Long saveId = songRepository.save(song);
+        em.flush();
+        em.clear();
+
+        Song foundSong = songRepository.findOne(saveId);
+        assertNotNull(foundSong);
+        assertEquals("Test Song", foundSong.getTitle());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void testSong2() {
+        Artist artist = createArtist("Test Artist2");
+        Album album = createAlbum("Test Album2");
+
+        Song song = Song.builder()
+                .title("Test Song")
+                .artist(artist)
+                .album(album)
+                .releaseDate(LocalDate.of(2022, 9, 18))
+                .build();
+
+        Long saveId = songRepository.save(song);
+        em.flush();
+        em.clear();
+
+        Song foundSong = songRepository.findOne(saveId);
+        assertNotNull(foundSong);
+        assertEquals("Test Song", foundSong.getTitle());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void findsong(){
+        List<Song> foundSongs = songRepository.findByTitle("Test Song");
+
+        Assertions.assertThat(foundSongs).hasSize(2);
+
+        for (Song foundSong : foundSongs) {
+            Assertions.assertThat(foundSong.getTitle()).isEqualTo("Test Song");
+        }
+    }
+}

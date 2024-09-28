@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +25,15 @@ public class Album {
     @NotNull
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name="artist_id")
-    private Artist artist; // ManyToOne
+    @Builder
+    public Album(String title) {
+        this.title = title;
+    }
+
+//    @NotNull
+//    @ManyToOne
+//    @JoinColumn(name="artist_id")
+//    private Artist artist; // ManyToOne
 
 //    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Song> song; // OneToMany

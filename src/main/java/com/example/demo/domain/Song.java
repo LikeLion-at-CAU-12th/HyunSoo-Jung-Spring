@@ -2,14 +2,13 @@ package com.example.demo.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
@@ -27,10 +26,12 @@ public class Song {
     @NotNull
     private String title;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name="artist_id")
     private Artist artist; // ManyToOne
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name="album_id")
     private Album album; // ManyToOne
@@ -43,4 +44,12 @@ public class Song {
 
 //    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Liked> likes; // OneToMany
+
+    @Builder
+    public Song(String title, Artist artist, Album album, LocalDate releaseDate) {
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.releaseDate = releaseDate;
+    }
 }
