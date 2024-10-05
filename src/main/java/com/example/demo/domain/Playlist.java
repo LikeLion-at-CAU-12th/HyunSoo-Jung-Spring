@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -31,4 +32,11 @@ public class Playlist {
 
 //    @OneToMany(mappedBy = "playlist")
 //    private List<PlaylistSong> playlistSongs;
+
+    @Builder
+    public Playlist(String title, String description, Member member) {
+        this.title = title;
+        this.description = description;
+        this.member = member;
+    }
 }

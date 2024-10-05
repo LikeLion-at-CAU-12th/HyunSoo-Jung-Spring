@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,4 +22,9 @@ public class Artist {
     // @Column(nullable = false)
     @NotNull
     private String name;
+
+    @Builder
+    public Artist(String name) {
+        this.name = name;
+    }
 }
