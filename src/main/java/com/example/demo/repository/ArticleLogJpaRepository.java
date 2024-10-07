@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface ArticleLogJpaRepository extends JpaRepository<ArticleLog, Long>{
     Optional<ArticleLog> findByArticle(Article article);
+
+    void deleteAllByArticle(Article article);
 }

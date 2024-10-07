@@ -105,4 +105,22 @@ public class ArticleService {
         }
         return article.getId();
     }
+
+    @Transactional
+    public void deleteArticle(Long articleId) {
+        Article article = articleJpaRepository.findById(articleId)
+                .orElseThrow(() -> new RuntimeException("해당 ID를 가진 게시글을 찾을 수 없습니다."));
+
+        articleLogJpaRepository.deleteAllByArticle(article);
+        categoryArticleJpaRepository.deleteAllByArticle(article);
+        articleJpaRepository.delete(article);
+    }
+
+//    @Transactional
+//    public void deleteArticle(Long articleId) {
+//        Article article = articleJpaRepository.findById(articleId)
+//                .orElseThrow(()-> new RuntimeException("해당 ID를 가진 게시글을 찾을 수 없습니다."));
+////        categoryArticleJpaRepository.deleteAllByArticle(article);
+//        articleJpaRepository.deleteById(article.getId());
+//    }
 }
