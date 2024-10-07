@@ -33,14 +33,12 @@ public class ArticleController {
     }
 
     @PutMapping("/{articleId}")
-    public ResponseEntity<ArticleResponseDto> updateArticle(@PathVariable("articleId") Long articleId, @RequestBody ArticleUpdateRequestDto requestDto) {
-        ArticleResponseDto updatedArticle = articleService.updateArticle(articleId, requestDto);
-        return new ResponseEntity<>(updatedArticle, HttpStatus.OK);
+    public ResponseEntity<Long> updateArticle(@PathVariable("articleId") Long articleId, @RequestBody ArticleUpdateRequestDto requestDto) {
+        requestDto.setId(articleId);
+
+        Long updatedArticleId = articleService.updateArticle(requestDto);
+        return new ResponseEntity<>(updatedArticleId, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{articleId}")
-    public ResponseEntity<Void> deleteArticle(@PathVariable("articleId") Long articleId) {
-        articleService.deleteArticle(articleId);
-        return ResponseEntity.ok().build();
-    }
+    //@DeleteMapping("")
 }

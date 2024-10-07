@@ -42,11 +42,12 @@ public class Article {
         this.comments = comments != null ? comments : new ArrayList<>();
     }
 
-    public void updateTitle(String title) {
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public void updateContent(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 }

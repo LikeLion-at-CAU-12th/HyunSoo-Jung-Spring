@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ArticleUpdateRequestDto {
-//    private Long id;
+    private Long Id;
     private String title;
     private String content;
     private List<Long> categoryIds;
