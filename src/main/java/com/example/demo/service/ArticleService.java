@@ -85,6 +85,7 @@ public class ArticleService {
         ArticleLog articleLog = ArticleLog.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
+                .article(article) // 게시글과 로그를 연결
                 .build();
         articleLogJpaRepository.save(articleLog);
 
@@ -111,8 +112,8 @@ public class ArticleService {
         Article article = articleJpaRepository.findById(articleId)
                 .orElseThrow(() -> new RuntimeException("해당 ID를 가진 게시글을 찾을 수 없습니다."));
 
-        articleLogJpaRepository.deleteAllByArticle(article);
-        categoryArticleJpaRepository.deleteAllByArticle(article);
+//        articleLogJpaRepository.deleteAllByArticle(article);
+//        categoryArticleJpaRepository.deleteAllByArticle(article);
         articleJpaRepository.delete(article);
     }
 
