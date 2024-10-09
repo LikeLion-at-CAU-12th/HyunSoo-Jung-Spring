@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -24,7 +27,27 @@ public class Article {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    @Builder
+    public Article(String title, String content, Member member, List<Comment> comments) {
+        this.title = title;
+        this.content = content;
+        this.member = member;
+        this.comments = comments != null ? comments : new ArrayList<>();
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
