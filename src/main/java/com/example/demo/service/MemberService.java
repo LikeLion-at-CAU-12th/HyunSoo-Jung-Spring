@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Member;
+import com.example.demo.dto.request.JoinRequest;
 import com.example.demo.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,5 +57,20 @@ public class MemberService {
         for (Member member : members) {
             System.out.println("ID: " + member.getId() + ", Username: " + member.getUsername());
         }
+    }
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public void join(JoinRequest joinRequest) {
+        if (memberJpaRepository.existsByUsername(joinRequest.getUsername()))
+            return;
+
+        Member member = Member.builder()
+                .username(joinRequest.getUsername())
+                .email(joinRequest.getEmail())
+                .password(bCryptPasswordEncoder.encode(joinRequest.getPassword()))
+                .build();
+
+        memberJpaRepository.save(member);
     }
 }

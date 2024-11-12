@@ -40,6 +40,10 @@ dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	// mysql 추가
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	// spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// oauth
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 tasks.named('test') {
